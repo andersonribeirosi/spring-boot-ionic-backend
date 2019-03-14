@@ -21,7 +21,7 @@ import br.com.elfrarep.domain.enums.TipoCliente;
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -31,12 +31,14 @@ public class Cliente implements Serializable {
 	private Integer tipoCliente;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
+
+	private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente() {
 		super();
@@ -107,7 +109,17 @@ public class Cliente implements Serializable {
 		this.telefones = telefones;
 	}
 
-	/* (non-Javadoc)
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -118,7 +130,9 @@ public class Cliente implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -138,5 +152,4 @@ public class Cliente implements Serializable {
 		return true;
 	}
 
-	
 }
