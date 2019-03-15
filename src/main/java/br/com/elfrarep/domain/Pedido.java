@@ -3,16 +3,33 @@ package br.com.elfrarep.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Date instante;
 
-	private Cliente cliente;
-
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
+	private Cliente cliente;
+
+	@ManyToOne
+	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 
 	public Pedido() {
@@ -20,12 +37,11 @@ public class Pedido implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pedido(Integer id, Date instante, Cliente cliente, Pagamento pagamento, Endereco enderecoDeEntrega) {
+	public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.cliente = cliente;
-		this.pagamento = pagamento;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
@@ -93,7 +109,5 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 
 }
