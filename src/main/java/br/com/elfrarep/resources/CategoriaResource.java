@@ -12,7 +12,7 @@ import br.com.elfrarep.domain.Categoria;
 import br.com.elfrarep.service.CategoriaService;
 
 @RestController
-@RequestMapping(value = "categorias")
+@RequestMapping(value = "/categorias")
 public class CategoriaResource {
 	
 	@Autowired
