@@ -13,7 +13,7 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository repo;
 	
-	public Produto buscar(Integer id) {
+	public Produto find(Integer id) {
 		Produto obj = repo.findOne(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado");
